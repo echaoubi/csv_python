@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Pride and Prejudice",
+    "author": "Jane Austen",
+    "publication_year": 1813,
+    "genre": "Romance"
+},
+{
+    "title": "The Hobbit",
+    "author": "J.R.R. Tolkien",
+    "publication_year": 1937,
+    "genre": "Fantasy"
+},
+{
+  "title": "The Great Gatsby",
+  "author": "F. Scott Fitzgerald",
+  "publication_year": 1925,
+  "genre": "Novel"
+}
+]

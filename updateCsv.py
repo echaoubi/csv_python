@@ -14,22 +14,30 @@ def update_csv_with_json(csv_file, json_file):
 
     with open(json_file, 'r') as file:
         additional_data = json.load(file)
-    for row in additional_data:
-        row['time_created'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    if type(additional_data) ==list:
+        for row in additional_data:
+            row['time_created'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        updated_data = existing_data + additional_data
+    elif type(additional_data) ==dict:
+        additional_data['time_created'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        updated_data = existing_data
+        updated_data.append(additional_data)
+    
+    unique_keys = []
+    for key_set in updated_data:
+        for key in key_set.keys():
+            if key not in unique_keys:
+                unique_keys.append(key)
 
-    updated_data = existing_data + additional_data
-    print(updated_data)
-
-    headers = list(updated_data[0].keys())
-
+    headers = list(unique_keys)
     with open(csv_file, 'w', newline='') as file:
         writer = csv.DictWriter(file, fieldnames=headers)
         writer.writeheader()
         writer.writerows(updated_data)
 
-    print(f"CSV file '{csv_file}' updated successfully!")
+    print(f"CSV file '{csv_file}' updated successfully at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} !")
 
 
 csv_file = 'data.csv'
-json_file = 'additional_data.json'
+json_file = 'data.json'
 update_csv_with_json(csv_file, json_file)
